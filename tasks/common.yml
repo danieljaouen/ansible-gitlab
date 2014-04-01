@@ -1,0 +1,13 @@
+# file: tasks/common.yml
+
+---
+- name: common | aptitude upgrade
+  apt: update_cache=yes upgrade=yes
+
+- name: common | aptitude install python-software-properties
+  apt: pkg=python-software-properties state=present
+
+- name: common | apt add repositories apt_repositories
+  apt_repository: repo={{ item }}
+  with_items: gitlab.common.apt_repositories
+

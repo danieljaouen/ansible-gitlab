@@ -1,0 +1,41 @@
+# file: defaults/main.yml
+
+---
+gitlab:
+  common:
+    apt_repositories:
+      - ppa:git-core/ppa
+
+    apt_packages:
+      - build-essential
+      - checkinstall
+      - curl
+      - gettext
+      - git
+      - git-core
+      - libcurl4-openssl-dev
+      - libexpat1-dev
+      - libffi-dev
+      - libgdbm-dev
+      - libicu-dev
+      - libmysqlclient-dev
+      - libncurses5-dev
+      - libreadline-dev
+      - libssl-dev
+      - libxml2-dev
+      - libxslt1-dev
+      - libyaml-dev
+      - logrotate
+      - make
+      - mysql-client
+      - mysql-server
+      - nginx
+      - openssh-server
+      - postfix
+      - python-docutils
+      - python-software-properties
+      - redis-server
+      - rsync
+      - tmux
+      - unattended-upgrades
+      - zlib1g-dev
