@@ -2,16 +2,89 @@
 
 ---
 gitlab:
+  # common ---------------------------------------------------------------- {{{
   common:
+    # directories -------------------------------------------------- {{{
     directories:
       - /home/git/gitlab/tmp/pids
       - /home/git/gitlab/tmp/sockets
       - /home/git/gitlab/public/uploads
       - /home/git/repositories/root
+    # /directories ------------------------------------------------- }}}
 
+    # absent_symlink ----------------------------------------------- {{{
+    absent_symlinks:
+      - /etc/nginx/sites-enabled/default
+    # /absent_symlinks --------------------------------------------- }}}
+
+    # symlinks ----------------------------------------------------- {{{
+    symlinks:
+      - src: /etc/nginx/sites-available/gitlab
+        dest: /etc/nginx/sites-enabled/gitlab
+        owner: root
+        group: root
+    # /symlinks ---------------------------------------------------- }}}
+
+    # templates ---------------------------------------------------- {{{
+    templates:
+      - src: etc/nginx/nginx.conf.j2
+        dest: /etc/nginx/nginx.conf
+        owner: root
+        group: root
+        mode: 644
+      - src: etc/nginx/sites-available/gitlab.j2
+        dest: /etc/nginx/sites-available/gitlab
+        owner: root
+        group: root
+        mode: 644
+      - src: var/run/motd.j2
+        dest: /etc/motd
+        owner: root
+        group: root
+        mode: 644
+      - src: etc/init.d/gitlab.j2
+        dest: /etc/init.d/gitlab
+        owner: root
+        group: root
+        mode: 755
+      - src: etc/logrotate.d/gitlab.j2
+        dest: /etc/logrotate.d/gitlab
+        owner: root
+        group: root
+        mode: 644
+      - src: home/git/gitlab-shell/config.yml.j2
+        dest: /home/git/gitlab-shell/config.yml
+        owner: git
+        group: git
+        mode: 644
+      - src: home/git/gitlab/config/gitlab.yml.j2
+        dest: /home/git/gitlab/config/gitlab.yml
+        owner: git
+        group: git
+        mode: 644
+      - src: home/git/gitlab/config/unicorn.rb.j2
+        dest: /home/git/gitlab/config/unicorn.rb
+        owner: git
+        group: git
+        mode: 644
+      - src: home/git/gitlab/config/initializers/rack_attack.rb.j2
+        dest: /home/git/gitlab/config/initializers/rack_attack.rb
+        owner: git
+        group: git
+        mode: 644
+      - src: home/git/gitlab/config/database.yml.j2
+        dest: /home/git/gitlab/config/database.yml
+        owner: git
+        group: git
+        mode: 644
+    # /templates --------------------------------------------------- }}}
+
+    # apt_repositories --------------------------------------------- {{{
     apt_repositories:
       - ppa:git-core/ppa
+    # /apt_repositories -------------------------------------------- }}}
 
+    # apt_packages ------------------------------------------------- {{{
     apt_packages:
       - build-essential
       - checkinstall
@@ -45,7 +118,9 @@ gitlab:
       - tmux
       - unattended-upgrades
       - zlib1g-dev
+    # /apt_packages ------------------------------------------------ }}}
 
+    # source_packages ---------------------------------------------- {{{
     source_packages:
       tar:
         - name: ruby
@@ -69,7 +144,10 @@ gitlab:
           make_creates: /tmp/the_silver_searcher/ag
           make_install_command: make install
           make_install_creates: /usr/local/bin/ag
+    # /source_packages --------------------------------------------- }}}
+  # /common --------------------------------------------------------------- }}}
 
+  # repos ----------------------------------------------------------------- {{{
   repos:
     git:
       - name: gitlab
@@ -80,9 +158,12 @@ gitlab:
         repo: https://github.com/gitlabhq/gitlab-shell.git
         dest: /home/git/gitlab-shell
         version: v1.8.0
+  # /repos ---------------------------------------------------------------- }}}
 
+  # users ----------------------------------------------------------------- {{{
   users:
     users:
       - name: git
         password_hash: $6$kkaegia6LEq1FlFx$MUrbk/JUHV1Ht2AGE2oKEfScjKBwM0fR84jP6i6NWbNnM8qTQqbswBDNZ4SU37YeoujhasDAJE/2TY1xZJJIL/
         shell: /bin/bash
+  # /users ---------------------------------------------------------------- }}}
