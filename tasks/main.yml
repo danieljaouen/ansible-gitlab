@@ -1,7 +1,9 @@
 # file: tasks/main.yml
 
 ---
+- include: users.yml
 - include: common.yml
+- include: repos.yml
 - include: ruby.yml
 - include: mysql.yml
 - include: config.yml
