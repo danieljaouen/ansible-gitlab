@@ -11,3 +11,8 @@
   apt_repository: repo={{ item }}
   with_items: gitlab.common.apt_repositories
 
+- name: gitlab | common | create the GitLab directories
+  file: name={{ item }} state=directory
+  sudo: yes
+  sudo_user: git
+  with_items: gitlab.common.directories

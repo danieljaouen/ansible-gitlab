@@ -1,0 +1,6 @@
+# file: tasks/users.yml
+
+---
+- name: common | adduser users
+  user: name={{ item.name }} password={{ item.password_hash }} shell={{ item.shell }}
+  with_items: gitlab.users.users

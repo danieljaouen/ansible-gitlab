@@ -1,0 +1,6 @@
+# file: tasks/repos.yml
+
+---
+- name: repos | git clone git_repos
+  git: repo={{ item.repo }} dest={{ item.dest }} version={{ item.version }}
+  with_items: gitlab.repos.git

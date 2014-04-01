@@ -3,6 +3,12 @@
 ---
 gitlab:
   common:
+    directories:
+      - /home/git/gitlab/tmp/pids
+      - /home/git/gitlab/tmp/sockets
+      - /home/git/gitlab/public/uploads
+      - /home/git/repositories/root
+
     apt_repositories:
       - ppa:git-core/ppa
 
@@ -39,3 +45,20 @@ gitlab:
       - tmux
       - unattended-upgrades
       - zlib1g-dev
+
+  repos:
+    git:
+      - name: gitlab
+        repo: https://github.com/gitlabhq/gitlabhq.git
+        dest: /home/git/gitlab
+        version: 6-5-stable
+      - name: gitlab-shell
+        repo: https://github.com/gitlabhq/gitlab-shell.git
+        dest: /home/git/gitlab-shell
+        version: v1.8.0
+
+  users:
+    users:
+      - name: git
+        password_hash: $6$kkaegia6LEq1FlFx$MUrbk/JUHV1Ht2AGE2oKEfScjKBwM0fR84jP6i6NWbNnM8qTQqbswBDNZ4SU37YeoujhasDAJE/2TY1xZJJIL/
+        shell: /bin/bash
