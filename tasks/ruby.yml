@@ -1,0 +1,5 @@
+# file: tasks/ruby.yml
+
+---
+- name: ruby | gem install bundler
+  shell: gem install bundler creates=/usr/local/bin/bundle

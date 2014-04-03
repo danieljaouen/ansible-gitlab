@@ -1,0 +1,14 @@
+# file: tasks/mysql.yml
+
+---
+- name: mysql | mysql db
+  command: mysql -e "CREATE DATABASE IF NOT EXISTS `{{ item.name }}` DEFAULT CHARACTER SET `{{ item.encoding }}` COLLATE `{{ item.collation }}`;"
+  with_items: gitlab.mysql.dbs
+
+- name: mysql | mysql user
+  command: mysql -D {{ item.database }} -e "GRANT ALL ON * TO '{{ item.name }}'@'{{ item.host }}' IDENTIFIED BY '{{ item.password }}';"
+  with_items: gitlab.mysql.users
+
+- name: mysql | mysql create privileges
+  command: mysql -e "GRANT CREATE ON *.* TO '{{ item.name }}'@'{{ item.host }}';"
+  with_items: gitlab.mysql.users

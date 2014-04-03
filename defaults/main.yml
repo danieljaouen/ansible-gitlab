@@ -167,3 +167,19 @@ gitlab:
         password_hash: $6$kkaegia6LEq1FlFx$MUrbk/JUHV1Ht2AGE2oKEfScjKBwM0fR84jP6i6NWbNnM8qTQqbswBDNZ4SU37YeoujhasDAJE/2TY1xZJJIL/
         shell: /bin/bash
   # /users ---------------------------------------------------------------- }}}
+
+  # mysql ----------------------------------------------------------------- {{{
+  mysql:
+    dbs:
+      - name: gitlabhq_production
+        encoding: utf8
+        collation: utf8_unicode_ci
+        state: present
+    users:
+      - name: gitlab
+        database: gitlabhq_production
+        host: localhost
+        state: present
+        priv: 'gitlabhq_production.*:ALL'
+        password: 'gitlab_digital_ocean'
+    # /mysql ---------------------------------------------------------------- }}}
