@@ -1,2 +1,20 @@
+# file: handlers/main.yml
+
 ---
-# handlers file for gitlab
+- name: handlers | service nginx start
+  service: name=nginx state=started
+
+- name: handlers | service nginx stop
+  service: name=nginx state=stopped
+
+- name: handlers | service nginx restart
+  service: name=nginx state=restarted
+
+- name: handlers | service gitlab start
+  service: name=gitlab state=started
+
+- name: handlers | service gitlab stop
+  service: name=gitlab state=stopped
+
+- name: handlers | service gitlab restart
+  service: name=gitlab state=restarted
