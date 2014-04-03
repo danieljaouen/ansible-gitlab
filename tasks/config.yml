@@ -47,5 +47,5 @@
 - name: config | start on boot
   command: update-rc.d gitlab defaults 21
   notify:
-    - gitlab | handlers | service gitlab restart
-    - gitlab | handlers | service nginx restart
+    - handlers | service gitlab restart
+    - handlers | service nginx restart
