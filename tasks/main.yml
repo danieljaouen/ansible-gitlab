@@ -2,8 +2,8 @@
 
 ---
 - include: users.yml
-- include: common.yml
 - include: repos.yml
+- include: common.yml
 - include: ruby.yml
 - include: mysql.yml
 - include: config.yml
