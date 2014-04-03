@@ -1,0 +1,51 @@
+# file: tasks/config.yml
+
+---
+- name: config | gitlab_shell install
+  shell: ./bin/install chdir=/home/git/gitlab-shell
+  sudo: yes
+  sudo_user: git
+
+- name: config | create the gitlab-satellites directory
+  file: name=/home/git/gitlab-satellites state=directory
+  sudo: yes
+  sudo_user: git
+
+- name: config | setup git username
+  shell: git config --global user.name "GitLab" chdir=/home/git
+  sudo: yes
+  sudo_user: git
+
+- name: config | setup git email
+  shell: git config --global user.email "gitlab@localhost" chdir=/home/git
+  sudo: yes
+  sudo_user: git
+
+- name: config | setup git autoclrf
+  shell: git config --global core.autocrlf input chdir=/home/git
+  sudo: yes
+  sudo_user: git
+
+- name: config | bundle install
+  shell: bundle install --deployment --without development test postgres aws chdir=/home/git/gitlab
+  sudo: yes
+  sudo_user: git
+
+- name: config | initialize database
+  shell: yes yes | bundle exec rake gitlab:setup RAILS_ENV=production chdir=/home/git/gitlab
+  sudo: yes
+  sudo_user: git
+
+- name: config | precompile assets
+  shell: bundle exec rake assets:precompile RAILS_ENV=production chdir=/home/git/gitlab
+  sudo: yes
+  sudo_user: git
+
+- name: config | chown
+  file: name=/home/git owner=git group=git recurse=yes
+
+- name: config | start on boot
+  command: update-rc.d gitlab defaults 21
+  notify:
+    - gitlab | handlers | service gitlab restart
+    - gitlab | handlers | service nginx restart
