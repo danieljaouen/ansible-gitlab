@@ -19,19 +19,19 @@
 
 - name: gitlab | common | templates
   template: src={{ item.src }} dest={{ item.dest }}
-  with_items: gitlab.templates
+  with_items: gitlab.common.templates
 
 - name: gitlab | common | template modes
   file: name={{ item.dest }} owner={{ item.owner }} group={{ item.group }} mode={{ item.mode }}
-  with_items: gitlab.templates
+  with_items: gitlab.common.templates
 
 - name: gitlab | common | symlinks
   file: state=link src={{ item.src }} dest={{ item.dest }} owner={{ item.owner }} group={{ item.group }}
-  with_items: gitlab.symlinks
+  with_items: gitlab.common.symlinks
 
 - name: gitlab | common | absent symlinks
   file: name={{ item }} state=absent
-  with_items: gitlab.absent_symlinks
+  with_items: gitlab.common.absent_symlinks
 
 # source packages --------------------------------------------------------- {{{
 - name: common | curl source_packages.tar
