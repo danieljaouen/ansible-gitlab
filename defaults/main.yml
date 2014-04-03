@@ -153,11 +153,11 @@ gitlab:
       - name: gitlab
         repo: https://github.com/gitlabhq/gitlabhq.git
         dest: /home/git/gitlab
-        version: 6-5-stable
+        version: master
       - name: gitlab-shell
         repo: https://github.com/gitlabhq/gitlab-shell.git
         dest: /home/git/gitlab-shell
-        version: v1.8.0
+        version: master
   # /repos ---------------------------------------------------------------- }}}
 
   # users ----------------------------------------------------------------- {{{
