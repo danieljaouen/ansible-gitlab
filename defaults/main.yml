@@ -2,6 +2,27 @@
 
 ---
 gitlab:
+  # users ----------------------------------------------------------------- {{{
+  users:
+    users:
+      - name: git
+        password_hash: $6$kkaegia6LEq1FlFx$MUrbk/JUHV1Ht2AGE2oKEfScjKBwM0fR84jP6i6NWbNnM8qTQqbswBDNZ4SU37YeoujhasDAJE/2TY1xZJJIL/
+        shell: /bin/bash
+  # /users ---------------------------------------------------------------- }}}
+
+  # repos ----------------------------------------------------------------- {{{
+  repos:
+    git:
+      - name: gitlab
+        repo: https://github.com/gitlabhq/gitlabhq.git
+        dest: /home/git/gitlab
+        version: master
+      - name: gitlab-shell
+        repo: https://github.com/gitlabhq/gitlab-shell.git
+        dest: /home/git/gitlab-shell
+        version: master
+  # /repos ---------------------------------------------------------------- }}}
+
   # common ---------------------------------------------------------------- {{{
   common:
     # directories -------------------------------------------------- {{{
@@ -24,6 +45,20 @@ gitlab:
         owner: root
         group: root
     # /symlinks ---------------------------------------------------- }}}
+
+    # config files ------------------------------------------------- {{{
+    config_files:
+      - src: /home/git/gitlab-shell/config.yml.example
+        dest: /home/git/gitlab-shell/config.yml
+      - src: /home/git/gitlab/config/gitlab.yml.example
+        dest: /home/git/gitlab/config/gitlab.yml
+      - src: /home/git/gitlab/config/unicorn.rb.example
+        dest: /home/git/gitlab/config/unicorn.rb
+      - src: /home/git/gitlab/config/initializers/rack_attack.rb.example
+        dest: /home/git/gitlab/config/initializers/rack_attack.rb
+      - src: /home/git/gitlab/config/database.yml.mysql
+        dest: /home/git/gitlab/config/database.yml
+    # /config files ------------------------------------------------ }}}
 
     # templates ---------------------------------------------------- {{{
     templates:
@@ -51,31 +86,6 @@ gitlab:
         dest: /etc/logrotate.d/gitlab
         owner: root
         group: root
-        mode: 644
-      - src: home/git/gitlab-shell/config.yml.j2
-        dest: /home/git/gitlab-shell/config.yml
-        owner: git
-        group: git
-        mode: 644
-      - src: home/git/gitlab/config/gitlab.yml.j2
-        dest: /home/git/gitlab/config/gitlab.yml
-        owner: git
-        group: git
-        mode: 644
-      - src: home/git/gitlab/config/unicorn.rb.j2
-        dest: /home/git/gitlab/config/unicorn.rb
-        owner: git
-        group: git
-        mode: 644
-      - src: home/git/gitlab/config/initializers/rack_attack.rb.j2
-        dest: /home/git/gitlab/config/initializers/rack_attack.rb
-        owner: git
-        group: git
-        mode: 644
-      - src: home/git/gitlab/config/database.yml.j2
-        dest: /home/git/gitlab/config/database.yml
-        owner: git
-        group: git
         mode: 644
     # /templates --------------------------------------------------- }}}
 
@@ -146,27 +156,6 @@ gitlab:
           make_install_creates: /usr/local/bin/ag
     # /source_packages --------------------------------------------- }}}
   # /common --------------------------------------------------------------- }}}
-
-  # repos ----------------------------------------------------------------- {{{
-  repos:
-    git:
-      - name: gitlab
-        repo: https://github.com/gitlabhq/gitlabhq.git
-        dest: /home/git/gitlab
-        version: master
-      - name: gitlab-shell
-        repo: https://github.com/gitlabhq/gitlab-shell.git
-        dest: /home/git/gitlab-shell
-        version: master
-  # /repos ---------------------------------------------------------------- }}}
-
-  # users ----------------------------------------------------------------- {{{
-  users:
-    users:
-      - name: git
-        password_hash: $6$kkaegia6LEq1FlFx$MUrbk/JUHV1Ht2AGE2oKEfScjKBwM0fR84jP6i6NWbNnM8qTQqbswBDNZ4SU37YeoujhasDAJE/2TY1xZJJIL/
-        shell: /bin/bash
-  # /users ---------------------------------------------------------------- }}}
 
   # mysql ----------------------------------------------------------------- {{{
   mysql:
