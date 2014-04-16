@@ -27,6 +27,8 @@
 
 - name: common | config files
   command: "cp {{ item.src }} {{ item.dest }} creates={{ item.dest }}"
+  sudo: yes
+  sudo_user: git
   with_items: gitlab.common.config_files
 
 - name: common | template modes
