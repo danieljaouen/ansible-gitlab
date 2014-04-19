@@ -1,7 +1,7 @@
 gitlab
 ======
 
-ansible-gitlab
+Currently a work-in-progress.
 
 Requirements
 ------------
